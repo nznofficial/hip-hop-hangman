@@ -1,4 +1,4 @@
-<!-- index.html -->
+<!-- index.html (Layout C + favicon.png) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,15 +6,31 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Hip Hop Hangman</title>
 
-  <link rel="icon" type="image/svg+xml" href="favicon.png" />
-  <link rel="preload" as="image" href="hip-hop-hangman-logo.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
 
+  <link rel="preload" as="image" href="hip-hop-hangman-logo.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+  <!-- Full-screen win/loss logo overlay (mobile-first) -->
+  <div id="logoOverlay" class="logo-overlay" aria-hidden="true">
+    <img
+      id="overlayLogo"
+      src="hip-hop-hangman-logo.png"
+      alt="Hip Hop Hangman"
+      class="overlay-logo"
+      width="1536"
+      height="768"
+      draggable="false"
+    />
+  </div>
+
   <main class="app" id="appRoot">
-    <header class="header">
+    <!-- Desktop header (big logo). On mobile Layout C uses a mini badge header instead -->
+    <header class="header header-desktop">
       <img
         id="titleLogo"
         src="hip-hop-hangman-logo.png"
@@ -27,15 +43,36 @@
       <p class="sub">Guess the US hip hop/rap artist. You have <strong>10 lives</strong>.</p>
     </header>
 
+    <!-- Mobile Header (Layout C): mini badge + lives in one row -->
+    <header class="header header-mobile" aria-label="Mobile header">
+      <div class="mobile-top">
+        <div class="badge" id="miniBadge" aria-label="Hip Hop Hangman badge">
+          <span>HHH</span>
+        </div>
+
+        <div class="mobile-meter" aria-label="Lives meter">
+          <div class="mobile-meter-top">
+            <span class="mobile-meter-label">Lives</span>
+            <span class="mobile-meter-count"><span id="livesLeft">10</span>/<span id="livesMax">10</span></span>
+          </div>
+          <div class="meter-track meter-track-mobile" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10">
+            <div id="meterFill" class="meter-fill" style="width: 100%"></div>
+            <div class="meter-gloss"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <section class="board">
-      <div class="top-bar">
-        <div class="meter" aria-label="Lives meter">
+      <!-- Desktop-only top bar (meter + vinyl). Hidden on mobile Layout C -->
+      <div class="top-bar top-bar-desktop">
+        <div class="meter" aria-label="Lives meter (desktop)">
           <div class="meter-label">
             <span>Lives</span>
-            <span><span id="livesLeft">10</span>/<span id="livesMax">10</span></span>
+            <span><span class="livesLeftDesktop" id="livesLeftDesktop">10</span>/<span id="livesMaxDesktop">10</span></span>
           </div>
           <div class="meter-track" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10">
-            <div id="meterFill" class="meter-fill" style="width: 100%"></div>
+            <div id="meterFillDesktop" class="meter-fill" style="width: 100%"></div>
             <div class="meter-gloss"></div>
           </div>
         </div>
@@ -58,7 +95,8 @@
       <div id="message" class="message" role="status" aria-live="polite"></div>
     </section>
 
-    <section class="controls">
+    <!-- Mobile sticky bottom bar (Layout C): keyboard + actions -->
+    <section class="controls controls-sticky" aria-label="Controls">
       <div class="keyboard-wrap">
         <div class="kbd-title">Tap a letter or number</div>
         <div id="keyboard" class="keyboard" aria-label="On-screen keyboard"></div>
@@ -68,13 +106,9 @@
         <button id="newGameBtn" type="button">New Game</button>
         <button id="revealBtn" type="button" class="secondary">Reveal Answer</button>
       </div>
-
-      <div class="hint">
-        Tip: You can also type on your keyboard (A–Z / 0–9).
-      </div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer footer-desktop">
       <small>Chomp Entertainment • &copy;2026</small>
     </footer>
   </main>
