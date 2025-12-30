@@ -1,3 +1,4 @@
+/* styles.css (complete) */
 :root{
   --bg:#050505;
   --text:#f6f1d3;
@@ -55,7 +56,10 @@ body{
 
 @keyframes winFlash{
   0%{ transform:translateY(0) scale(1); }
-  30%{ transform:translateY(-2px) scale(1.03); filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75)) drop-shadow(0 0 44px rgba(255,221,110,0.85)); }
+  30%{
+    transform:translateY(-2px) scale(1.03);
+    filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75)) drop-shadow(0 0 44px rgba(255,221,110,0.85));
+  }
   100%{ transform:translateY(0) scale(1); }
 }
 @keyframes loseFlicker{
@@ -275,7 +279,6 @@ body{
 .keyboard-wrap{ display:grid; gap:10px; }
 .kbd-title{ color:var(--muted); font-size:14px; text-align:center; }
 
-/* IMPORTANT: tighter keyboard that uses the whole width */
 .keyboard{
   display:grid;
   gap:10px;
@@ -353,32 +356,34 @@ button{
 .scratch .vinyl{ animation:vinylSpinBack 260ms ease-in-out; }
 .scratch .needle{ animation:needleJolt 260ms ease-in-out; }
 
-/* ===== Layout C Responsive Mode ===== */
+/* ===== Responsive Mode ===== */
 .header-mobile{ display:none; }
 .controls-sticky{ position:static; }
 .footer-desktop{ display:block; }
 
 @media (max-width: 900px), (max-height: 520px) {
+  /* More space reserved so the board isn’t hidden by sticky dock */
   .app{
-    padding:12px 12px calc(240px + env(safe-area-inset-bottom)) 12px;
+    padding:12px 12px calc(290px + env(safe-area-inset-bottom)) 12px;
   }
 
   .header-desktop{ display:none; }
   .top-bar-desktop{ display:none; }
   .footer-desktop{ display:none; }
 
+  /* tighter header spacing */
   .header-mobile{
     display:block;
-    margin-top:6px;
-    margin-bottom:10px;
+    margin-top:4px;
+    margin-bottom:6px;
   }
 
-  /* Mobile logo at top (compact) */
+  /* Mobile logo (15% smaller + less bottom gap) */
   .mobile-logo{
     display:block;
     width:min(66vw, 272px);
     height:auto;
-    margin:0 auto 10px;
+    margin:0 auto 4px;
     object-fit:contain;
     user-select:none;
     pointer-events:none;
@@ -392,8 +397,9 @@ button{
   .mobile-topbar{
     display:grid;
     grid-template-columns: 1fr auto;
-    gap:12px;
+    gap:10px;
     align-items:center;
+    margin-bottom:6px; /* brings board up a bit */
   }
 
   .mobile-meter-top{
@@ -407,23 +413,24 @@ button{
   .meter-track-mobile{ height:14px; }
 
   .vinyl-wrap-mobile{
-    width:74px;
-    height:54px;
+    width:72px;
+    height:52px;
   }
   .vinyl-wrap-mobile .vinyl{
-    width:54px;
-    height:54px;
+    width:52px;
+    height:52px;
   }
   .vinyl-wrap-mobile .needle{
-    right:40px;
+    right:38px;
     top:6px;
-    width:38px;
+    width:36px;
     height:6px;
   }
 
   .board{
     margin-top:10px;
     padding:14px;
+    padding-bottom:22px; /* ensures “Guessed” + border aren’t covered */
     border-radius:16px;
   }
 
@@ -431,7 +438,7 @@ button{
   .tile{ width:34px; height:48px; font-size:20px; }
   .tile.blank::after{ top:12px; width:16px; }
 
-  /* Sticky dock */
+  /* Sticky dock: shorter to reclaim vertical space */
   .controls-sticky{
     position:fixed;
     left:0; right:0;
@@ -442,42 +449,46 @@ button{
     border-left:none;
     border-right:none;
     border-bottom:none;
-    padding:12px 12px calc(12px + env(safe-area-inset-bottom)) 12px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom)) 12px;
     background:rgba(10,10,10,0.94);
     backdrop-filter: blur(8px);
   }
 
-  /* ✅ Mobile keyboard: full-width, no lonely letters */
-  .keyboard{ gap:8px; }
+  .keyboard-wrap{ gap:8px; }
+  .keyboard{ gap:7px; }
+
   .keyboard-row{
-    gap:8px;
+    gap:7px;
     justify-content:space-between;
   }
+
+  /* Slightly shorter keys */
   .key{
     min-width:0;
     width:100%;
     flex:1 1 0;
-    height:40px;
+    height:38px;            /* was 40px */
     padding:0;
     border-radius:10px;
     font-size:14px;
   }
 
-  /* Give rows with fewer keys a little inset like real QWERTY */
+  /* QWERTY offsets */
   .keyboard-row.offset-1{ padding:0 6px; }
   .keyboard-row.offset-2{ padding:0 18px; }
 
+  /* Buttons row tighter */
   .actions{
-    margin-top:10px;
+    margin-top:8px;
     display:grid;
     grid-template-columns: 1fr 1fr;
     gap:10px;
   }
-  button{ height:44px; }
+  button{ height:42px; }     /* was 44px */
   .kbd-title{ font-size:13px; }
 }
 
 @media (max-height: 430px) {
   .kbd-title{ display:none; }
-  .app{ padding-bottom: calc(210px + env(safe-area-inset-bottom)); }
+  .app{ padding-bottom: calc(260px + env(safe-area-inset-bottom)); }
 }
