@@ -233,13 +233,24 @@
     transform: rotate(-18deg);
   }
   
+  /* ======= NAME BOARD FIX =======
+     Each word (first name / last name) is rendered as its own row,
+     so mobile never splits a word across lines.
+  */
   .name-board {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px 8px;
-    padding: 10px 0 14px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
     user-select: none;
+    padding: 10px 0 14px;
+  }
+  
+  .name-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap; /* key: keep each word on one line */
+    justify-content: center;
   }
   
   .tile {
@@ -265,12 +276,6 @@
     top: 14px;
   }
   
-  .tile.space {
-    width: 20px;
-    background: transparent;
-    border: none;
-  }
-  
   .tile.hyphen {
     width: 22px;
     background: transparent;
@@ -278,6 +283,12 @@
     font-weight: 900;
     opacity: 0.95;
     color: var(--gold2);
+  }
+  
+  /* Slightly tighter tiles on small screens for long names */
+  @media (max-width: 420px) {
+    .tile { width: 34px; height: 48px; font-size: 20px; }
+    .name-row { gap: 6px; }
   }
   
   .status {

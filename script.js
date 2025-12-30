@@ -1,6 +1,4 @@
 // script.js
-// 100 US Hip Hop / Rap artists. Spaces + hyphens supported.
-// Punctuation is auto-revealed; letters and digits are guessable.
 const ARTISTS = [
     "2Pac","50 Cent","A$AP Rocky","Andre 3000","Beastie Boys","Big Boi","Big Pun","Big Sean","Biz Markie","Busta Rhymes",
     "Cardi B","Chance the Rapper","Common","Cordae","DaBaby","Danny Brown","De La Soul","DMX","Dr. Dre","E-40",
@@ -17,7 +15,6 @@ const ARTISTS = [
   
   const MAX_LIVES = 10;
   
-  // On-screen keyboard layout
   const KEY_ROWS = [
     ["A","B","C","D","E","F","G","H","I","J"],
     ["K","L","M","N","O","P","Q","R","S","T"],
@@ -55,7 +52,7 @@ const ARTISTS = [
     return /^[A-Z0-9]$/.test(ch);
   }
   
-  // Auto-reveal punctuation like $ . , ' etc., plus spaces and hyphens
+  // Auto-reveal punctuation, keep spaces/hyphens, hide guessable chars
   function initRevealedForAnswer(ansUpper) {
     return Array.from(ansUpper).map(ch => {
       if (ch === " ") return " ";
@@ -70,35 +67,60 @@ const ARTISTS = [
     msgEl.className = "message" + (kind ? ` ${kind}` : "");
   }
   
+  /**
+   * Renders the board as "word rows" (split by spaces).
+   * This prevents mobile from wrapping mid-word (e.g., splitting last name).
+   */
   function renderBoard() {
     nameBoardEl.innerHTML = "";
+  
+    const words = [];
+    let currentWord = [];
+  
     for (let i = 0; i < revealed.length; i++) {
       const ch = revealed[i];
-      const tile = document.createElement("div");
-      tile.classList.add("tile");
   
       if (ch === " ") {
-        tile.classList.add("space");
-        tile.textContent = "";
-      } else if (ch === "-") {
-        tile.classList.add("hyphen");
-        tile.textContent = "-";
-      } else if (ch === "_") {
-        tile.classList.add("blank");
-        tile.textContent = "";
+        if (currentWord.length) {
+          words.push(currentWord);
+          currentWord = [];
+        }
       } else {
-        tile.textContent = ch;
+        currentWord.push(ch);
       }
-  
-      nameBoardEl.appendChild(tile);
     }
+    if (currentWord.length) words.push(currentWord);
+  
+    words.forEach(wordChars => {
+      const row = document.createElement("div");
+      row.className = "name-row";
+  
+      wordChars.forEach(ch => {
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
+  
+        if (ch === "-") {
+          tile.classList.add("hyphen");
+          tile.textContent = "-";
+        } else if (ch === "_") {
+          tile.classList.add("blank");
+          tile.textContent = "";
+        } else {
+          tile.textContent = ch;
+        }
+  
+        row.appendChild(tile);
+      });
+  
+      nameBoardEl.appendChild(row);
+    });
   }
   
   function renderStatus() {
     livesLeftEl.textContent = String(lives);
     livesMaxEl.textContent = String(MAX_LIVES);
   
-    const guessedArr = Array.from(guessed).sort((a,b) =>
+    const guessedArr = Array.from(guessed).sort((a, b) =>
       a.localeCompare(b, "en", { numeric: true })
     );
     guessedCharsEl.textContent = guessedArr.length ? guessedArr.join(", ") : "—";
@@ -141,7 +163,7 @@ const ARTISTS = [
   function triggerLogoEffect(className, durationMs) {
     if (!titleLogoEl) return;
     titleLogoEl.classList.remove(className);
-    void titleLogoEl.offsetWidth; // restart animation reliably
+    void titleLogoEl.offsetWidth;
     titleLogoEl.classList.add(className);
     window.setTimeout(() => titleLogoEl.classList.remove(className), durationMs);
   }
@@ -204,10 +226,9 @@ const ARTISTS = [
     });
   }
   
-  // "Record scratch" effect: shake app + spin vinyl + jolt needle (CSS handles visuals)
   function triggerScratch() {
     appRootEl.classList.remove("scratch");
-    void appRootEl.offsetWidth; // force reflow
+    void appRootEl.offsetWidth;
     appRootEl.classList.add("scratch");
     window.setTimeout(() => appRootEl.classList.remove("scratch"), 300);
   }
@@ -262,6 +283,7 @@ const ARTISTS = [
     answerOriginal = pickRandomArtist();
     answerUpper = answerOriginal.toUpperCase();
     revealed = initRevealedForAnswer(answerUpper);
+  
     guessed = new Set();
     lives = MAX_LIVES;
     gameOver = false;
