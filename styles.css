@@ -376,7 +376,7 @@ button{
   /* Mobile logo at top (compact) */
   .mobile-logo{
     display:block;
-    width:min(78vw, 320px);
+    width:min(66vw, 272px);
     height:auto;
     margin:0 auto 10px;
     object-fit:contain;
