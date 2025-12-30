@@ -1,4 +1,3 @@
-/* styles.css (Layout C) */
 :root{
   --bg:#050505;
   --text:#f6f1d3;
@@ -20,7 +19,7 @@ body{
   color:var(--text);
 }
 
-/* ===== Overlay (big logo on win/loss) ===== */
+/* ===== Overlay (big logo only on win/loss) ===== */
 .logo-overlay{
   position:fixed;
   inset:0;
@@ -38,7 +37,9 @@ body{
 }
 .overlay-logo{
   width:min(92vw, 720px);
+  max-height:45vh;          /* ✅ prevents giant overlay on iPhone */
   height:auto;
+  object-fit:contain;
   user-select:none;
   pointer-events:none;
   filter:
@@ -55,11 +56,14 @@ body{
   padding:28px 18px 40px;
 }
 
-/* Desktop header (big logo) */
+/* Desktop header */
 .header-desktop .title-logo{
   display:block;
   max-width:min(820px, 100%);
+  max-height:220px;         /* ✅ cap desktop logo height too */
+  width:auto;
   height:auto;
+  object-fit:contain;
   margin:0 auto 8px;
   user-select:none;
   pointer-events:none;
@@ -74,7 +78,6 @@ body{
   text-align:center;
 }
 
-/* Logo breathing (desktop only) */
 @keyframes glowBreath{
   0%,100%{
     filter:drop-shadow(0 4px 0 rgba(0,0,0,0.75))
@@ -88,23 +91,10 @@ body{
   }
 }
 
-/* Win/loss animations */
 @keyframes winFlash{
-  0%{
-    transform:translateY(0) scale(1);
-    filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75))
-           drop-shadow(0 0 18px rgba(212,175,55,0.28));
-  }
-  30%{
-    transform:translateY(-2px) scale(1.03);
-    filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75))
-           drop-shadow(0 0 44px rgba(255,221,110,0.85));
-  }
-  100%{
-    transform:translateY(0) scale(1);
-    filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75))
-           drop-shadow(0 0 18px rgba(212,175,55,0.28));
-  }
+  0%{ transform:translateY(0) scale(1); filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75)) drop-shadow(0 0 18px rgba(212,175,55,0.28)); }
+  30%{ transform:translateY(-2px) scale(1.03); filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75)) drop-shadow(0 0 44px rgba(255,221,110,0.85)); }
+  100%{ transform:translateY(0) scale(1); filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75)) drop-shadow(0 0 18px rgba(212,175,55,0.28)); }
 }
 @keyframes loseFlicker{
   0%{ filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75)) drop-shadow(0 0 16px rgba(212,175,55,0.18)); }
@@ -114,16 +104,7 @@ body{
   100%{ filter:drop-shadow(0 10px 0 rgba(0,0,0,0.75)) drop-shadow(0 0 18px rgba(212,175,55,0.28)); }
 }
 
-.board{
-  background:rgba(12,12,12,0.92);
-  border:var(--border);
-  border-radius:18px;
-  padding:18px;
-  margin-top:16px;
-  box-shadow:var(--shadow);
-}
-
-.controls{
+.board, .controls{
   background:rgba(12,12,12,0.92);
   border:var(--border);
   border-radius:18px;
@@ -175,7 +156,7 @@ body{
   background:linear-gradient(90deg, var(--danger), var(--gold2));
 }
 
-/* Vinyl (desktop only) */
+/* Vinyl */
 .vinyl-wrap{ position:relative; width:96px; height:64px; }
 .vinyl{
   position:absolute; right:0; top:0;
@@ -208,7 +189,7 @@ body{
   transform:rotate(-18deg);
 }
 
-/* Name board: split into word rows so words never wrap mid-word */
+/* Name board (no mid-word wrap) */
 .name-board{
   display:flex;
   flex-direction:column;
@@ -230,7 +211,6 @@ body{
 .name-row.compact .tile{ width:34px; height:48px; font-size:20px; }
 .name-row.ultra-compact .tile{ width:30px; height:44px; font-size:18px; }
 
-/* Tiles */
 .tile{
   width:40px;
   height:52px;
@@ -279,12 +259,8 @@ body{
   animation:rowShine 420ms ease-out 1;
   pointer-events:none;
 }
-@keyframes rowShine{
-  from{ left:-40%; }
-  to{ left:120%; }
-}
+@keyframes rowShine{ from{ left:-40%; } to{ left:120%; } }
 
-/* Status + message */
 .status{
   display:flex;
   justify-content:space-between;
@@ -328,23 +304,10 @@ body{
   cursor:pointer;
   user-select:none;
 }
-.key:hover{
-  background:linear-gradient(180deg, rgba(255,221,110,0.28), rgba(212,175,55,0.14));
-}
-.key:disabled{
-  opacity:0.35;
-  cursor:not-allowed;
-}
-.key.hit{
-  border-color:rgba(55,214,122,0.8);
-  box-shadow:0 0 0 3px rgba(55,214,122,0.12);
-}
-.key.miss{
-  border-color:rgba(255,90,95,0.85);
-  box-shadow:0 0 0 3px rgba(255,90,95,0.10);
-}
+.key:disabled{ opacity:0.35; cursor:not-allowed; }
+.key.hit{ border-color:rgba(55,214,122,0.8); box-shadow:0 0 0 3px rgba(55,214,122,0.12); }
+.key.miss{ border-color:rgba(255,90,95,0.85); box-shadow:0 0 0 3px rgba(255,90,95,0.10); }
 
-/* Actions */
 .actions{
   margin-top:14px;
   display:flex;
@@ -362,10 +325,6 @@ button{
   font-weight:800;
   cursor:pointer;
 }
-button:hover{
-  background:linear-gradient(180deg, rgba(255,221,110,0.28), rgba(212,175,55,0.14));
-}
-button:disabled{ opacity:0.5; cursor:not-allowed; }
 .secondary{
   border-color:rgba(255,255,255,0.18);
   background:rgba(255,255,255,0.06);
@@ -373,7 +332,7 @@ button:disabled{ opacity:0.5; cursor:not-allowed; }
 
 .footer{ margin-top:18px; color:rgba(246,241,211,0.55); text-align:center; }
 
-/* Record scratch effect (desktop only, but harmless on mobile) */
+/* Record scratch */
 @keyframes scratchShake{
   0%{ transform:translate(0,0) rotate(0deg); }
   15%{ transform:translate(-2px,1px) rotate(-0.5deg); }
@@ -399,23 +358,28 @@ button:disabled{ opacity:0.5; cursor:not-allowed; }
 .scratch .vinyl{ animation:vinylSpinBack 260ms ease-in-out; }
 .scratch .needle{ animation:needleJolt 260ms ease-in-out; }
 
-/* ===== Layout C Mobile Rules ===== */
+/* =========================
+   ✅ Layout C Responsive Mode
+   Trigger on phones/tablets AND short-height landscape
+   ========================= */
+
 .header-mobile{ display:none; }
 .controls-sticky{ position:static; }
 .footer-desktop{ display:block; }
 
-/* Mobile adjustments (Layout C) */
-@media (max-width: 520px){
+/* Use Layout C on screens <= 900px OR short height (landscape phones) */
+@media (max-width: 900px), (max-height: 520px) {
   .app{
-    padding:12px 12px calc(260px + env(safe-area-inset-bottom)) 12px;
+    /* Reserve space so board doesn't hide behind sticky keyboard */
+    padding:12px 12px calc(250px + env(safe-area-inset-bottom)) 12px;
   }
 
-  /* Hide desktop-only elements */
+  /* Hide desktop logo + desktop top bar + footer */
   .header-desktop{ display:none; }
   .top-bar-desktop{ display:none; }
   .footer-desktop{ display:none; }
 
-  /* Show compact mobile header */
+  /* Show mobile header */
   .header-mobile{
     display:block;
     margin-top:8px;
@@ -428,7 +392,6 @@ button:disabled{ opacity:0.5; cursor:not-allowed; }
     border-radius:16px;
   }
 
-  /* Mobile top row */
   .mobile-top{
     display:grid;
     grid-template-columns:auto 1fr;
@@ -436,7 +399,6 @@ button:disabled{ opacity:0.5; cursor:not-allowed; }
     align-items:center;
   }
 
-  /* Mini badge */
   .badge{
     width:52px;
     height:52px;
@@ -460,7 +422,6 @@ button:disabled{ opacity:0.5; cursor:not-allowed; }
     50%{ transform:translateY(-1px); filter:drop-shadow(0 0 16px rgba(255,221,110,0.24)); }
   }
 
-  /* Mobile meter */
   .mobile-meter-top{
     display:flex;
     justify-content:space-between;
@@ -471,11 +432,10 @@ button:disabled{ opacity:0.5; cursor:not-allowed; }
   }
   .meter-track-mobile{ height:14px; }
 
-  /* Name tiles smaller on mobile */
+  /* Slightly smaller tiles + keyboard */
   .tile{ width:34px; height:48px; font-size:20px; }
   .tile.blank::after{ top:12px; width:16px; }
 
-  /* Sticky controls docked to bottom */
   .controls-sticky{
     position:fixed;
     left:0; right:0;
@@ -503,4 +463,11 @@ button:disabled{ opacity:0.5; cursor:not-allowed; }
   .actions{ margin-top:10px; }
   button{ height:44px; }
   .kbd-title{ font-size:13px; }
+}
+
+/* Extra-tight landscape phones (short height) */
+@media (max-height: 430px) {
+  .kbd-title{ display:none; }
+  .actions{ margin-top:8px; }
+  .app{ padding-bottom: calc(220px + env(safe-area-inset-bottom)); }
 }

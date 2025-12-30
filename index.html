@@ -1,4 +1,3 @@
-<!-- index.html (Layout C + favicon.png) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Hip Hop Hangman</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="apple-touch-icon" href="favicon.png" />
 
@@ -15,7 +13,7 @@
 </head>
 
 <body>
-  <!-- Full-screen win/loss logo overlay (mobile-first) -->
+  <!-- Big logo ONLY for win/loss -->
   <div id="logoOverlay" class="logo-overlay" aria-hidden="true">
     <img
       id="overlayLogo"
@@ -29,7 +27,7 @@
   </div>
 
   <main class="app" id="appRoot">
-    <!-- Desktop header (big logo). On mobile Layout C uses a mini badge header instead -->
+    <!-- Desktop header (big logo). Hidden on phones/tablets via CSS breakpoint -->
     <header class="header header-desktop">
       <img
         id="titleLogo"
@@ -43,7 +41,7 @@
       <p class="sub">Guess the US hip hop/rap artist. You have <strong>10 lives</strong>.</p>
     </header>
 
-    <!-- Mobile Header (Layout C): mini badge + lives in one row -->
+    <!-- Layout C Mobile Header: mini badge + lives -->
     <header class="header header-mobile" aria-label="Mobile header">
       <div class="mobile-top">
         <div class="badge" id="miniBadge" aria-label="Hip Hop Hangman badge">
@@ -64,12 +62,12 @@
     </header>
 
     <section class="board">
-      <!-- Desktop-only top bar (meter + vinyl). Hidden on mobile Layout C -->
+      <!-- Desktop-only top bar (meter + vinyl). Hidden in Layout C -->
       <div class="top-bar top-bar-desktop">
         <div class="meter" aria-label="Lives meter (desktop)">
           <div class="meter-label">
             <span>Lives</span>
-            <span><span class="livesLeftDesktop" id="livesLeftDesktop">10</span>/<span id="livesMaxDesktop">10</span></span>
+            <span><span id="livesLeftDesktop">10</span>/<span id="livesMaxDesktop">10</span></span>
           </div>
           <div class="meter-track" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10">
             <div id="meterFillDesktop" class="meter-fill" style="width: 100%"></div>
@@ -95,7 +93,7 @@
       <div id="message" class="message" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Mobile sticky bottom bar (Layout C): keyboard + actions -->
+    <!-- Sticky bottom dock (phones/tablets) -->
     <section class="controls controls-sticky" aria-label="Controls">
       <div class="keyboard-wrap">
         <div class="kbd-title">Tap a letter or number</div>

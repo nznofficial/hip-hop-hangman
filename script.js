@@ -1,4 +1,3 @@
-// script.js (Layout C)
 const ARTISTS = [
   "2Pac","50 Cent","A$AP Rocky","Andre 3000","Beastie Boys","Big Boi","Big Pun","Big Sean","Biz Markie","Busta Rhymes",
   "Cardi B","Chance the Rapper","Common","Cordae","DaBaby","Danny Brown","De La Soul","DMX","Dr. Dre","E-40",
@@ -21,7 +20,6 @@ const KEY_ROWS = [
   ["U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"]
 ];
 
-// State
 let answerOriginal = "";
 let answerUpper = "";
 let revealed = [];
@@ -29,10 +27,8 @@ let guessed = new Set();
 let lives = MAX_LIVES;
 let gameOver = false;
 
-// Track newly revealed indexes (for pop animation + row shine)
 let lastRevealIndexes = [];
 
-// DOM
 const appRootEl = document.getElementById("appRoot");
 const nameBoardEl = document.getElementById("nameBoard");
 const guessedCharsEl = document.getElementById("guessedChars");
@@ -41,19 +37,16 @@ const keyboardEl = document.getElementById("keyboard");
 const newGameBtnEl = document.getElementById("newGameBtn");
 const revealBtnEl = document.getElementById("revealBtn");
 
-// Mobile meter
 const livesLeftEl = document.getElementById("livesLeft");
 const livesMaxEl = document.getElementById("livesMax");
 const meterFillEl = document.getElementById("meterFill");
 const meterTrackElMobile = document.querySelector(".meter-track-mobile");
 
-// Desktop meter (optional)
 const livesLeftDesktopEl = document.getElementById("livesLeftDesktop");
 const livesMaxDesktopEl = document.getElementById("livesMaxDesktop");
 const meterFillDesktopEl = document.getElementById("meterFillDesktop");
 const meterTrackElDesktop = document.querySelector(".top-bar-desktop .meter-track");
 
-// Overlay
 const logoOverlayEl = document.getElementById("logoOverlay");
 const overlayLogoEl = document.getElementById("overlayLogo");
 
@@ -65,7 +58,6 @@ function isGuessableChar(ch) {
   return /^[A-Z0-9]$/.test(ch);
 }
 
-// Auto-reveal punctuation, keep spaces/hyphens, hide guessable chars
 function initRevealedForAnswer(ansUpper) {
   return Array.from(ansUpper).map(ch => {
     if (ch === " ") return " ";
@@ -80,12 +72,6 @@ function setMessage(text, kind = "") {
   msgEl.className = "message" + (kind ? ` ${kind}` : "");
 }
 
-/**
- * Render board:
- * - Split by spaces into rows (prevents mid-word wrapping)
- * - Auto-scale long single-word names
- * - Animate newly revealed letters + row shine
- */
 function renderBoard() {
   nameBoardEl.innerHTML = "";
 
@@ -142,7 +128,6 @@ function renderBoard() {
 }
 
 function renderStatus() {
-  // Mobile
   if (livesLeftEl) livesLeftEl.textContent = String(lives);
   if (livesMaxEl) livesMaxEl.textContent = String(MAX_LIVES);
   if (meterFillEl) meterFillEl.style.width = `${Math.max(0, (lives / MAX_LIVES) * 100)}%`;
@@ -152,7 +137,6 @@ function renderStatus() {
     meterTrackElMobile.classList.toggle("low", lives <= 3);
   }
 
-  // Desktop (if present)
   if (livesLeftDesktopEl) livesLeftDesktopEl.textContent = String(lives);
   if (livesMaxDesktopEl) livesMaxDesktopEl.textContent = String(MAX_LIVES);
   if (meterFillDesktopEl) meterFillDesktopEl.style.width = `${Math.max(0, (lives / MAX_LIVES) * 100)}%`;
@@ -328,19 +312,16 @@ function startNewGame() {
   renderAll();
 }
 
-// Typing support
 document.addEventListener("keydown", (e) => {
   if (gameOver) return;
   const key = (e.key || "").toUpperCase();
   if (isGuessableChar(key)) applyGuess(key);
 });
 
-// Buttons
 newGameBtnEl.addEventListener("click", startNewGame);
 revealBtnEl.addEventListener("click", () => {
   if (!gameOver) revealAnswer();
 });
 
-// Init
 buildKeyboard();
 startNewGame();
