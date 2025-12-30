@@ -1,12 +1,8 @@
----
-
 # 🎤 Hip Hop Hangman
 
 A stylish, browser-based **Hangman-style word game** celebrating **U.S. hip hop & rap artists** — built with **pure HTML, CSS, and JavaScript**, and hosted on **GitHub Pages**.
 
 Players guess letters and numbers to reveal the name of a hip hop artist before they run out of lives. Misses trigger a vinyl **record scratch animation**, while wins and losses light up the graffiti logo with dynamic effects.
-
----
 
 ## 🔥 Features
 
@@ -34,8 +30,6 @@ Players guess letters and numbers to reveal the name of a hip hop artist before 
 * 🚀 **No frameworks, no build tools**
 * 🌐 **GitHub Pages–ready**
 
----
-
 ## 🕹️ How to Play
 
 1. A random hip hop artist is selected.
@@ -47,8 +41,6 @@ Players guess letters and numbers to reveal the name of a hip hop artist before 
    * Cost **1 life**
    * Trigger a **record scratch animation**
 6. Win by revealing the full name before lives hit 0.
-
----
 
 ## 📁 Project Structure
 
@@ -62,8 +54,6 @@ Players guess letters and numbers to reveal the name of a hip hop artist before 
 └─ README.md
 ```
 
----
-
 ## 🚀 Running Locally
 
 No setup required.
@@ -76,8 +66,6 @@ index.html
 
 in your browser.
 
----
-
 ## 🌍 Deploying to GitHub Pages
 
 1. Push this repo to GitHub
@@ -88,8 +76,6 @@ in your browser.
    * **Branch**: `main`
    * **Folder**: `/ (root)`
 4. Save — your site will be live in seconds
-
----
 
 ## 🎨 Customization Ideas
 
@@ -102,14 +88,10 @@ Want to take it further?
 * 🎯 Artist categories (Old School / 2000s / Modern)
 * 📱 Mobile-first layout tweaks
 
----
-
 ## ⚠️ Disclaimer
 
 This project is a **fan-made game** for educational and entertainment purposes.
 Artist names are used for gameplay only. No affiliation with any artists or labels.
-
----
 
 ## 🙌 Credits
 
@@ -118,5 +100,3 @@ Built with ❤️ using:
 * Vanilla **HTML / CSS / JavaScript**
 * Custom graffiti logo
 * Hosted on **GitHub Pages**
-
----
