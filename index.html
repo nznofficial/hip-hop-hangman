@@ -28,7 +28,7 @@
   </div>
 
   <main class="app" id="appRoot">
-    <!-- Desktop header (big logo). Hidden on phones/tablets via CSS breakpoint -->
+    <!-- Desktop header -->
     <header class="header header-desktop">
       <img
         id="titleLogo"
@@ -42,12 +42,13 @@
       <p class="sub">Guess the US hip hop/rap artist. You have <strong>10 lives</strong>.</p>
     </header>
 
-    <!-- Layout C Mobile Header: favicon badge + lives -->
+    <!-- Mobile Header (Layout C): favicon badge + lives -->
     <header class="header header-mobile" aria-label="Mobile header">
       <div class="mobile-top">
         <div class="badge" id="miniBadge" aria-label="Hip Hop Hangman badge">
+          <!-- cache-bust to beat iPhone Safari caching -->
           <img
-            src="favicon.png"
+            src="favicon.png?v=3"
             alt="Hip Hop Hangman"
             class="badge-img"
             width="64"
@@ -70,7 +71,7 @@
     </header>
 
     <section class="board">
-      <!-- Desktop-only top bar (meter + vinyl). Hidden in Layout C -->
+      <!-- Desktop-only top bar -->
       <div class="top-bar top-bar-desktop">
         <div class="meter" aria-label="Lives meter (desktop)">
           <div class="meter-label">
@@ -101,7 +102,7 @@
       <div id="message" class="message" role="status" aria-live="polite"></div>
     </section>
 
-    <!-- Sticky bottom dock (phones/tablets) -->
+    <!-- Sticky bottom dock -->
     <section class="controls controls-sticky" aria-label="Controls">
       <div class="keyboard-wrap">
         <div class="kbd-title">Tap a letter or number</div>

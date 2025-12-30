@@ -26,7 +26,6 @@ let revealed = [];
 let guessed = new Set();
 let lives = MAX_LIVES;
 let gameOver = false;
-
 let lastRevealIndexes = [];
 
 const appRootEl = document.getElementById("appRoot");
@@ -99,9 +98,7 @@ function renderBoard() {
     if (letterCount >= 11) row.classList.add("ultra-compact");
     else if (letterCount >= 9) row.classList.add("compact");
 
-    if (wordObjs.some(o => lastRevealIndexes.includes(o.idx))) {
-      row.classList.add("shine");
-    }
+    if (wordObjs.some(o => lastRevealIndexes.includes(o.idx))) row.classList.add("shine");
 
     wordObjs.forEach(o => {
       const tile = document.createElement("div");
@@ -151,13 +148,8 @@ function renderStatus() {
 }
 
 function setKeyboardEnabled(enabled) {
-  const keys = keyboardEl.querySelectorAll("button.key");
-  keys.forEach(btn => {
-    if (guessed.has(btn.dataset.key)) {
-      btn.disabled = true;
-      return;
-    }
-    btn.disabled = !enabled;
+  keyboardEl.querySelectorAll("button.key").forEach(btn => {
+    btn.disabled = guessed.has(btn.dataset.key) ? true : !enabled;
   });
 }
 
