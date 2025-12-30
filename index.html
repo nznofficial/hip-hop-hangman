@@ -9,6 +9,7 @@
   <link rel="apple-touch-icon" href="favicon.png" />
 
   <link rel="preload" as="image" href="hip-hop-hangman-logo.png" />
+  <link rel="preload" as="image" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -41,11 +42,18 @@
       <p class="sub">Guess the US hip hop/rap artist. You have <strong>10 lives</strong>.</p>
     </header>
 
-    <!-- Layout C Mobile Header: mini badge + lives -->
+    <!-- Layout C Mobile Header: favicon badge + lives -->
     <header class="header header-mobile" aria-label="Mobile header">
       <div class="mobile-top">
         <div class="badge" id="miniBadge" aria-label="Hip Hop Hangman badge">
-          <span>HHH</span>
+          <img
+            src="favicon.png"
+            alt="Hip Hop Hangman"
+            class="badge-img"
+            width="64"
+            height="64"
+            draggable="false"
+          />
         </div>
 
         <div class="mobile-meter" aria-label="Lives meter">
