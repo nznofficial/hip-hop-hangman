@@ -14,10 +14,16 @@ const ARTISTS = [
 
 const MAX_LIVES = 10;
 
+/**
+ * Mobile-friendly keyboard:
+ * - Digits row (0–9)
+ * - QWERTY rows for letters (no lonely J/T)
+ */
 const KEY_ROWS = [
-  ["A","B","C","D","E","F","G","H","I","J"],
-  ["K","L","M","N","O","P","Q","R","S","T"],
-  ["U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"]
+  ["0","1","2","3","4","5","6","7","8","9"],
+  ["Q","W","E","R","T","Y","U","I","O","P"],
+  ["A","S","D","F","G","H","J","K","L"],
+  ["Z","X","C","V","B","N","M"]
 ];
 
 let answerOriginal = "";
@@ -26,6 +32,7 @@ let revealed = [];
 let guessed = new Set();
 let lives = MAX_LIVES;
 let gameOver = false;
+
 let lastRevealIndexes = [];
 
 const appRootEl = document.getElementById("appRoot");
@@ -61,7 +68,7 @@ function initRevealedForAnswer(ansUpper) {
   return Array.from(ansUpper).map(ch => {
     if (ch === " ") return " ";
     if (ch === "-") return "-";
-    if (!isGuessableChar(ch)) return ch;
+    if (!isGuessableChar(ch)) return ch; // keep punctuation visible
     return "_";
   });
 }
@@ -179,9 +186,14 @@ function clearKeyboardMarks() {
 
 function buildKeyboard() {
   keyboardEl.innerHTML = "";
-  KEY_ROWS.forEach(row => {
+
+  KEY_ROWS.forEach((row, idx) => {
     const rowEl = document.createElement("div");
     rowEl.className = "keyboard-row";
+
+    // offsets for the QWERTY look (only letters rows)
+    if (idx === 2) rowEl.classList.add("offset-1"); // ASDF...
+    if (idx === 3) rowEl.classList.add("offset-2"); // ZXCV...
 
     row.forEach(ch => {
       const btn = document.createElement("button");
@@ -205,8 +217,6 @@ function triggerScratch() {
 }
 
 function showOverlay(effectClass) {
-  if (!logoOverlayEl || !overlayLogoEl) return;
-
   overlayLogoEl.classList.remove("win-flash", "lose-flicker");
   void overlayLogoEl.offsetWidth;
 

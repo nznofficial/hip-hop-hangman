@@ -9,7 +9,6 @@
   <link rel="apple-touch-icon" href="favicon.png" />
 
   <link rel="preload" as="image" href="hip-hop-hangman-logo.png" />
-  <link rel="preload" as="image" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -42,30 +41,37 @@
       <p class="sub">Guess the US hip hop/rap artist. You have <strong>10 lives</strong>.</p>
     </header>
 
-    <!-- Mobile Header (Layout C): favicon badge + lives -->
+    <!-- Mobile header (logo + meter + vinyl) -->
     <header class="header header-mobile" aria-label="Mobile header">
-      <div class="mobile-top">
-        <div class="badge" id="miniBadge" aria-label="Hip Hop Hangman badge">
-          <!-- cache-bust to beat iPhone Safari caching -->
-          <img
-            src="favicon.png?v=3"
-            alt="Hip Hop Hangman"
-            class="badge-img"
-            width="64"
-            height="64"
-            draggable="false"
-          />
-        </div>
+      <img
+        src="hip-hop-hangman-logo.png"
+        alt="Hip Hop Hangman"
+        class="mobile-logo"
+        width="1536"
+        height="768"
+        draggable="false"
+      />
 
+      <div class="mobile-topbar" aria-label="Lives and vinyl">
         <div class="mobile-meter" aria-label="Lives meter">
           <div class="mobile-meter-top">
             <span class="mobile-meter-label">Lives</span>
             <span class="mobile-meter-count"><span id="livesLeft">10</span>/<span id="livesMax">10</span></span>
           </div>
+
           <div class="meter-track meter-track-mobile" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10">
             <div id="meterFill" class="meter-fill" style="width: 100%"></div>
             <div class="meter-gloss"></div>
           </div>
+        </div>
+
+        <!-- Vinyl back on the right (mobile) -->
+        <div class="vinyl-wrap vinyl-wrap-mobile" aria-hidden="true">
+          <div class="vinyl">
+            <div class="vinyl-label"></div>
+            <div class="vinyl-hole"></div>
+          </div>
+          <div class="needle"></div>
         </div>
       </div>
     </header>
@@ -85,7 +91,7 @@
         </div>
 
         <div class="vinyl-wrap" aria-hidden="true">
-          <div id="vinyl" class="vinyl">
+          <div class="vinyl">
             <div class="vinyl-label"></div>
             <div class="vinyl-hole"></div>
           </div>
